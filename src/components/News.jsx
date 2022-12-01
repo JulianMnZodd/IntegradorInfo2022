@@ -10,9 +10,9 @@ import { CardActionArea } from "@mui/material";
 function News({ noticias }) {
   return (
     <Container style={{}}>
-      <Card sx={{ display: "flex",gap:'5px',border:'1px solid grey',justifyContent:'space-between',maxHeight:'200px'}}>
-        <CardActionArea sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
+      <Card sx={{ display: "flex",gap:'5px',border:'1px solid grey',maxHeight:'200px'}}>
+        <CardActionArea href={noticias.url} target="_blank">
+          <CardContent sx={{ display: "flex", flexDirection: "column",justifyContent:'space-around'}}>
             <Typography component="div" variant="h5">
               {noticias.title}
             </Typography>
