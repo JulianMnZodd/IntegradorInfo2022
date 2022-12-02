@@ -17,7 +17,7 @@ function News({ noticias }) {
               {noticias.title}
             </Typography>
             <Typography
-              variant="subtitle1"
+              variant="subtitle2"
               color="text.secondary"
               component="div"
             >
