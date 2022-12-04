@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import SearchAppBar from "../SearchAppBar";
 import Container from "@mui/material/Container";
 import NewsList from "../NewsList";
-//import {NewService} from ".../Services/NewService"
 import Paginator from "../Paginator";
 import Loading from "../Loading";
-
-const APIKEY = "48daa31b215045c5abd4714a438f4347";
-
+import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
+import Footer from "../Footer";
+
+const APIKEY = "48daa31b215045c5abd4714a438f4347";
 
 function PaginaBuscador() {
   const [searchParams] = useSearchParams();
@@ -23,6 +23,7 @@ function PaginaBuscador() {
 
   const [news, setNews] = useState([]);
   const [cantidadPaginas, setCantidadPaginas] = useState(1);
+  const [cantResultados,setCantResultados] = useState(0)
   const [isLoading, setIsLoading] = useState(false);
 
   const onSearch = async () => {
@@ -33,6 +34,7 @@ function PaginaBuscador() {
     const news = await resp.json();
     setNews(news.articles);
     setCantidadPaginas(Math.ceil(parseInt(news.totalResults) / 10));
+    setCantResultados(news.totalResults)
     setIsLoading(false);
   };
 
@@ -51,6 +53,7 @@ function PaginaBuscador() {
   };
 
   const onBusqueda = (noticia) => {
+    setPagActual(1);
     setContexto(noticia);
   };
   return (
@@ -59,6 +62,14 @@ function PaginaBuscador() {
       {isLoading && <Loading />}
       {!isLoading && (
         <>
+          <Typography
+            style={{marginTop:'20px',marginLeft:'25px'}}
+            variant=""
+            color="text.secondary"
+            component="div"
+          >
+            {`Está viendo  ${news.length} noticias de ${cantResultados} resultados`}
+          </Typography>
           <NewsList news={news}></NewsList>
           <Container
             style={{
@@ -73,8 +84,10 @@ function PaginaBuscador() {
               pagActual={pagActual}
             />
           </Container>
+          
         </>
       )}
+      <Footer></Footer>
     </Container>
   );
 }

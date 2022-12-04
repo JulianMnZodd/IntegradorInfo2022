@@ -21,7 +21,7 @@ const Search = styled("div")(({ theme }) => ({
   marginLeft: 0,
   width: "100%",
   [theme.breakpoints.up("md")]: {
-    marginLeft: theme.spacing(30),
+    marginLeft: theme.spacing(40),
     width: "auto",
   },
 }));
@@ -67,18 +67,21 @@ const theme = createTheme({
 
 export default function SearchAppBar({onBuscar}) {
   const [busqueda, setBusqueda] = useState("");
+  const [validacion,SetValidacion] = useState(true)
+
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1,marginTop:10}}>
+      <AppBar position="fixed">
         <Toolbar>
           <Typography
             variant="h6"
             noWrap
             component="div"
+            
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            App Noticias
+            <a style={{textDecoration:'none',color:'white'}} href="/buscador">App Noticias</a>
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -90,13 +93,20 @@ export default function SearchAppBar({onBuscar}) {
               value={busqueda}
               onChange={(e) => {
                 setBusqueda(e.target.value);
+                if (e.target.value.length>=3){
+                  SetValidacion()
+                }
+                else{
+                  SetValidacion(true)
+                }
               }}
             />
           </Search>
           <ThemeProvider theme={theme}>
             <Button
+              disabled={validacion}
               variant="contained"
-              onClick={() => {
+              onClick={(e) => {
                 onBuscar(busqueda);
               }}
             >
