@@ -9,6 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,39 +66,53 @@ const theme = createTheme({
   },
 });
 
-export default function SearchAppBar({onBuscar}) {
+export default function SearchAppBar({ onBuscar }) {
   const [busqueda, setBusqueda] = useState("");
-  const [validacion,SetValidacion] = useState(true)
+  const [validacion, SetValidacion] = useState(true);
 
+  const handleKey= ()=>{
+    if(keycode == '13'){
+      alert('You pressed a "enter" key in textbox'); 
+  }
+  }
 
   return (
-    <Box sx={{ flexGrow: 1,marginTop:10}}>
+    <Box sx={{ flexGrow: 1, marginTop: 10 }}>
       <AppBar position="fixed">
         <Toolbar>
+          <NewspaperIcon href="/buscador" style={{marginRight:'10px'}}></NewspaperIcon> 
           <Typography
             variant="h6"
             noWrap
             component="div"
-            
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <a style={{textDecoration:'none',color:'white'}} href="/buscador">App Noticias</a>
+            <a
+              style={{ textDecoration: "none", color: "white" }}
+              href="/buscador"
+            >
+              Noticias
+            </a>
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onKeyDown={ (e)=>{
+                  if(e.key=='Enter' && busqueda.length>3){
+                    onBuscar(busqueda)
+                  }
+              }}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               value={busqueda}
               onChange={(e) => {
                 setBusqueda(e.target.value);
-                if (e.target.value.length>=3){
-                  SetValidacion()
-                }
-                else{
-                  SetValidacion(true)
+                if (e.target.value.length >= 3) {
+                  SetValidacion();
+                } else {
+                  SetValidacion(true);
                 }
               }}
             />

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import ErrorPage from './components/pages/ErrorPage';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -8,16 +7,20 @@ import {
 } from "react-router-dom";
 import App from './App'
 import './index.css'
+import ErrorPage404 from './components/pages/ErrorPage404';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App></App>,
-    errorElement: <ErrorPage />,
   },
   {
     path: "/buscador",
     element: <App></App>,
+  },
+  {
+    path: "*",
+    element: <ErrorPage404/>,
   },
 ]);
 

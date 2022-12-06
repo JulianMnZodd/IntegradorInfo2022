@@ -2,6 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 
+import { createTheme } from '@mui/material/styles';
+
+
+
 export default function Loading() {
   const [progress, setProgress] = React.useState(0);
 
@@ -23,7 +27,7 @@ export default function Loading() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgress color="secondary" value={progress} />
+      <LinearProgress value={progress} />
     </Box>
   );
 }

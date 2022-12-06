@@ -23,19 +23,21 @@ function PaginaBuscador() {
 
   const [news, setNews] = useState([]);
   const [cantidadPaginas, setCantidadPaginas] = useState(1);
-  const [cantResultados,setCantResultados] = useState(0)
+  const [cantResultados, setCantResultados] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
   const onSearch = async () => {
-    setIsLoading(true);
-    const resp = await fetch(
-      `https://newsapi.org/v2/everything?q=${contexto}&page=${pagActual}&pageSize=10&apiKey=${APIKEY}&language=es`
-    );
-    const news = await resp.json();
-    setNews(news.articles);
-    setCantidadPaginas(Math.ceil(parseInt(news.totalResults) / 10));
-    setCantResultados(news.totalResults)
-    setIsLoading(false);
+    if (contexto.length > 3) {
+      setIsLoading(true);
+      const resp = await fetch(
+        `https://newsapi.org/v2/everything?q=${contexto}&page=${pagActual}&pageSize=10&apiKey=${APIKEY}&language=es`
+      );
+      const news = await resp.json();
+      setNews(news.articles);
+      setCantidadPaginas(Math.ceil(parseInt(news.totalResults) / 10));
+      setCantResultados(news.totalResults);
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -63,7 +65,7 @@ function PaginaBuscador() {
       {!isLoading && (
         <>
           <Typography
-            style={{marginTop:'20px',marginLeft:'25px'}}
+            style={{ marginTop: "20px", marginLeft: "25px" }}
             variant=""
             color="text.secondary"
             component="div"
@@ -84,7 +86,6 @@ function PaginaBuscador() {
               pagActual={pagActual}
             />
           </Container>
-          
         </>
       )}
       <Footer></Footer>
