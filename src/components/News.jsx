@@ -14,7 +14,8 @@ function News({ noticias }) {
         sx={{
           display: "flex",
           gap: "5px",
-          border: "1px solid grey",
+          border: "1px solid ",
+          borderColor:'#1976d2',
           maxHeight: "200px",
         }}
       >

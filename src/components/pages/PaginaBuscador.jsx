@@ -27,7 +27,7 @@ function PaginaBuscador() {
   const [isLoading, setIsLoading] = useState(false);
 
   const onSearch = async () => {
-    if (contexto.length > 3) {
+    if (contexto.length >= 3) {
       setIsLoading(true);
       const resp = await fetch(
         `https://newsapi.org/v2/everything?q=${contexto}&page=${pagActual}&pageSize=10&apiKey=${APIKEY}&language=es`
@@ -45,6 +45,7 @@ function PaginaBuscador() {
   }, []);
 
   const navigate = useNavigate();
+
   useEffect(() => {
     navigate(`/?search=${contexto}&pag=${pagActual}`);
     onSearch();

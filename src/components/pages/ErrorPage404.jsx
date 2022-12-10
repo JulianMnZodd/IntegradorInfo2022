@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError,Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import './ErrorPage404.css'
 export default function ErrorPage404() {
@@ -13,7 +13,7 @@ export default function ErrorPage404() {
       <p>
         <i>Página no encontrada</i>
       </p>
-      <Button color='secondary' size="small" href="/">Volver al buscador</Button>
+      <Link style={{ textDecoration: "none", color: "#9c27b0" }} to='/'>Volver al buscador</Link>
     </div>
   );
 }

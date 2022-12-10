@@ -11,6 +11,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useState } from "react";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 
+import { Link } from "react-router-dom";
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -70,29 +72,24 @@ export default function SearchAppBar({ onBuscar }) {
   const [busqueda, setBusqueda] = useState("");
   const [validacion, SetValidacion] = useState(true);
 
-  const handleKey= ()=>{
-    if(keycode == '13'){
-      alert('You pressed a "enter" key in textbox'); 
-  }
-  }
-
   return (
     <Box sx={{ flexGrow: 1, marginTop: 10 }}>
       <AppBar position="fixed">
         <Toolbar>
-          <NewspaperIcon href="/buscador" style={{marginRight:'10px'}}></NewspaperIcon> 
+          <NewspaperIcon style={{marginRight:'10px'}}></NewspaperIcon> 
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
-            <a
+           {/*  <Link // no me funciona el redireccionamiento
               style={{ textDecoration: "none", color: "white" }}
-              href="/buscador"
+              to="/"
             >
-              Noticias
-            </a>
+             Noticias
+            </Link> */}
+            Noticias
           </Typography>
           <Search>
             <SearchIconWrapper>
@@ -100,7 +97,7 @@ export default function SearchAppBar({ onBuscar }) {
             </SearchIconWrapper>
             <StyledInputBase
               onKeyDown={ (e)=>{
-                  if(e.key=='Enter' && busqueda.length>3){
+                  if(e.key=='Enter' && busqueda.length>=3){
                     onBuscar(busqueda)
                   }
               }}
@@ -115,15 +112,17 @@ export default function SearchAppBar({ onBuscar }) {
                   SetValidacion(true);
                 }
               }}
+              role="searchbox"
             />
           </Search>
           <ThemeProvider theme={theme}>
             <Button
               disabled={validacion}
               variant="contained"
-              onClick={(e) => {
+              onClick={(_e) => {
                 onBuscar(busqueda);
               }}
+              role='button'
             >
               Buscar
             </Button>

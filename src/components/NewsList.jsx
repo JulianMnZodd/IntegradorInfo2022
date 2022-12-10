@@ -6,7 +6,7 @@ import { Container } from "@mui/material";
 function NewsList({ news }) {
   if (news.length === 0) {
     return (
-      <Container style={{marginTop:'50px'}}>
+      <Container style={{ marginTop: "50px" }}>
         <Alert severity="info">No se encontraron resultados</Alert>
       </Container>
     );
